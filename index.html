@@ -1,57 +1,464 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scroll Animation Showcase</title>
-    <link rel="stylesheet" href="/styles.css" />
-  </head>
-  <body>
-    <section class="hero">
-      <div class="hero-header">
-        <h1>Creative Design Studio</h1>
-        <p>Bringing ideas to life through design and code.</p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scroll Animation Showcase · expanded</title>
+  <style>
+    /* reset & base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: #faf8f5;
+      color: #1e1e1e;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    section {
+      padding: 6rem 2rem;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding-top: 5rem;
+      padding-bottom: 7rem;
+      background: linear-gradient(145deg, #ffffff 0%, #f3efe9 100%);
+      border-radius: 0 0 3rem 3rem;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .hero-header p {
+      font-size: 1.5rem;
+      color: #4b4b4b;
+      margin-top: 1rem;
+      font-weight: 350;
+    }
+
+    /* floating icons (reused & more) */
+    .animated-icons {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem 3rem;
+      margin: 3.5rem 0 4rem 0;
+    }
+
+    .animated-icon {
+      width: 70px;
+      height: 70px;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(4px);
+      border-radius: 30% 70% 70% 30% / 30% 55% 45% 70%;
+      box-shadow: 0 20px 35px -8px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      animation: float 6s infinite ease-in-out;
+    }
+
+    .animated-icon img {
+      width: 40px;
+      height: 40px;
+      filter: brightness(0) saturate(100%) invert(30%) sepia(12%) saturate(998%) hue-rotate(220deg) brightness(92%) contrast(87%);
+    }
+
+    .icon-2 { animation-delay: 0.3s; }
+    .icon-3 { animation-delay: 1s; }
+    .icon-4 { animation-delay: 0.1s; border-radius: 63% 37% 41% 59% / 40% 43% 57% 60%; }
+    .icon-5 { animation-delay: 1.7s; }
+
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-18px) rotate(2deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    /* text with placeholder icons – more words added */
+    .animated-text {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem 0.3rem;
+      margin-top: 2rem;
+      background: rgba(255,255,240,0.3);
+      padding: 2rem 1.5rem;
+      border-radius: 80px 20px 80px 20px;
+    }
+
+    .text-segment {
+      background: #1e1e1e;
+      color: #faf8f5;
+      padding: 0.3rem 1rem;
+      border-radius: 60px;
+      font-size: 1.8rem;
+      font-weight: 450;
+      letter-spacing: -0.01em;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      white-space: nowrap;
+    }
+
+    .placeholder-icon {
+      width: 48px;
+      height: 48px;
+      background: #c7bba9;
+      border-radius: 50% 30% 50% 30%;
+      opacity: 0.7;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233d2b1f'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E");
+      background-size: 60% 60%;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* ----- NEW SECTIONS (more content) ----- */
+    .features {
+      background: #fff7ef;
+      border-radius: 3rem;
+      margin: 4rem auto;
+      padding: 6rem 2rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2.5rem;
+      margin-top: 4rem;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 2.5rem 2rem;
+      border-radius: 2.5rem;
+      box-shadow: 0 30px 40px -25px rgba(0,0,0,0.2);
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 40px 45px -20px #231f1b40;
+    }
+
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      background: #e6dfd6;
+      border-radius: 40% 60% 30% 70%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      font-size: 2.2rem;
+    }
+
+    .feature-card h3 {
+      font-size: 2rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-card p {
+      color: #4a4a4a;
+      font-size: 1.2rem;
+    }
+
+    /* work / gallery section */
+    .work {
+      background: #1e1e1e;
+      color: #f0ece5;
+      border-radius: 4rem 4rem 2rem 2rem;
+      padding: 7rem 2rem;
+    }
+
+    .work h2 {
+      font-size: 3.8rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      max-width: 900px;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 5rem 0 2rem;
+    }
+
+    .gallery-item {
+      background: #2f2a24;
+      min-width: 220px;
+      flex: 1 1 280px;
+      height: 260px;
+      border-radius: 3rem 1.5rem 3rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.8rem;
+      color: #ccc2b5;
+      box-shadow: inset 0 -3px 0 rgba(255,255,240,0.05);
+      transition: all 0.25s;
+    }
+
+    .gallery-item:hover {
+      background: #3f3830;
+      border-radius: 1.5rem 3rem 1.5rem 3rem;
+    }
+
+    .gallery-item span {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      filter: drop-shadow(2px 4px 6px #121212);
+    }
+
+    .gallery-item p {
+      font-size: 1.5rem;
+      font-weight: 300;
+    }
+
+    /* outro (original but enriched) */
+    .outro {
+      text-align: center;
+      background: #f3efe9;
+      border-radius: 4rem 4rem 0 0;
+      padding: 8rem 2rem;
+      margin-top: 2rem;
+    }
+
+    .outro h1 {
+      max-width: 900px;
+      margin: 0 auto 2rem;
+    }
+
+    .cta-button {
+      background: #1e1e1e;
+      color: white;
+      border: none;
+      padding: 1.2rem 3.5rem;
+      font-size: 1.7rem;
+      border-radius: 3rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.15s;
+      box-shadow: 0 12px 22px -12px rgba(0,0,0,0.3);
+    }
+
+    .cta-button:hover {
+      background: #3b332b;
+      transform: scale(0.97);
+    }
+
+    /* scroll animation (simple intersection observer class) */
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.9s cubic-bezier(0.2, 0.9, 0.1, 1), transform 0.9s cubic-bezier(0.2, 0.9, 0.1, 1);
+    }
+
+    .scroll-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* staggered delays for inner children */
+    .feature-card, .gallery-item, .animated-icon, .text-segment, .placeholder-icon {
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    /* hero first section – already visible */
+    .hero .scroll-fade {
+      transition-delay: 0.1s;
+    }
+
+    /* tiny extra */
+    .placeholder-icon {
+      background-color: #b8aa98; 
+    }
+    .footer-note {
+      background: #1e1e1e;
+      color: #a7a7a7;
+      text-align: center;
+      padding: 2rem;
+      font-size: 1rem;
+      border-top: 1px solid #3b3b3b;
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-header scroll-fade">
+      <h1>Creative Design Studio</h1>
+      <p>Bringing ideas to life through design and code.</p>
+    </div>
+
+    <!-- icons with more items (same theme, extra icons) -->
+    <div class="animated-icons scroll-fade">
+      <div class="animated-icon icon-1"><img src="/images/Frame.svg" alt="icon" /></div>
+      <div class="animated-icon icon-2"><img src="/images/Frame-1.svg" alt="icon" /></div>
+      <div class="animated-icon icon-3"><img src="/images/Frame-2.svg" alt="icon" /></div>
+      <div class="animated-icon icon-4"><img src="/images/Frame-3.svg" alt="icon" /></div>
+      <div class="animated-icon icon-5"><img src="/images/Frame-4.svg" alt="icon" /></div>
+      <!-- two extra similar icons (mimic existing style) -->
+      <div class="animated-icon" style="animation-delay:2.2s;"><img src="/images/Frame.svg" alt="icon" /></div>
+      <div class="animated-icon" style="animation-delay:0.9s;"><img src="/images/Frame-2.svg" alt="icon" /></div>
+    </div>
+
+    <!-- expanded text with more segments (more content) -->
+    <h1 class="animated-text scroll-fade">
+      <span class="text-segment">Explore creative</span>
+      <span class="text-segment">possibilities</span>
+      <div class="placeholder-icon"></div>
+      <span class="text-segment">discover</span>
+      <span class="text-segment">innovative</span>
+      <span class="text-segment">solutions</span>
+      <div class="placeholder-icon"></div>
+      <span class="text-segment">cutting-edge</span>
+      <span class="text-segment">design</span>
+      <span class="text-segment">expertise</span>
+      <div class="placeholder-icon"></div>
+      <span class="text-segment">elevate</span>
+      <span class="text-segment">brands</span>
+    </h1>
+  </section>
+
+  <!-- NEW SECTION: FEATURES (more theme-aligned content) -->
+  <section class="features scroll-fade">
+    <h1 style="font-size: 3.5rem; max-width: 700px;">designed to <br> move you</h1>
+    <div class="features-grid">
+      <div class="feature-card scroll-fade">
+        <div class="feature-icon">⚡</div>
+        <h3>motion first</h3>
+        <p>scroll-triggered animations that feel like a natural extension of the narrative.</p>
       </div>
-
-      <div class="animated-icons">
-        <div class="animated-icon icon-1">
-          <img src="/images/Frame.svg" alt="" />
-        </div>
-        <div class="animated-icon icon-2">
-          <img src="/images/Frame-1.svg" alt="" />
-        </div>
-        <div class="animated-icon icon-3">
-          <img src="/images/Frame-2.svg" alt="" />
-        </div>
-        <div class="animated-icon icon-4">
-          <img src="/images/Frame-3.svg" alt="" />
-        </div>
-        <div class="animated-icon icon-5">
-          <img src="/images/Frame-4.svg" alt="" />
-        </div>
+      <div class="feature-card scroll-fade">
+        <div class="feature-icon">🌀</div>
+        <h3>fluid shapes</h3>
+        <p>organic geometry and morphing icons — because creativity has no straight lines.</p>
       </div>
+      <div class="feature-card scroll-fade">
+        <div class="feature-icon">✨</div>
+        <h3>micro‑interactions</h3>
+        <p>every hover, every scroll tells a story. designed for delight.</p>
+      </div>
+      <div class="feature-card scroll-fade">
+        <div class="feature-icon">🪄</div>
+        <h3>design code sync</h3>
+        <p>from figma to browser, we keep the magic alive with clean execution.</p>
+      </div>
+    </div>
+  </section>
 
-      <h1 class="animated-text">
-        <div class="placeholder-icon"></div>
-        <span class="text-segment">Explore creative</span>
-        <div class="placeholder-icon"></div>
-        <span class="text-segment">possibilities and</span>
-        <span class="text-segment">discover innovative</span>
-        <div class="placeholder-icon"></div>
-        <span class="text-segment">solutions with</span>
-        <div class="placeholder-icon"></div>
-        <span class="text-segment">cutting-edge design</span>
-        <div class="placeholder-icon"></div>
-        <span class="text-segment">expertise.</span>
-      </h1>
-    </section>
+  <!-- NEW SECTION: WORK / GALLERY (more cards, same vibe) -->
+  <section class="work scroll-fade">
+    <h2>recent explorations —</h2>
+    <div class="gallery">
+      <div class="gallery-item scroll-fade">
+        <span>🌊</span>
+        <p>flow states</p>
+      </div>
+      <div class="gallery-item scroll-fade">
+        <span>🧩</span>
+        <p>modular</p>
+      </div>
+      <div class="gallery-item scroll-fade">
+        <span>⚡</span>
+        <p>spark</p>
+      </div>
+      <div class="gallery-item scroll-fade">
+        <span>🌀</span>
+        <p>vortex</p>
+      </div>
+      <div class="gallery-item scroll-fade">
+        <span>🌿</span>
+        <p>biomorphic</p>
+      </div>
+      <div class="gallery-item scroll-fade">
+        <span>🔮</span>
+        <p>future</p>
+      </div>
+    </div>
+    <p style="font-size: 1.8rem; margin-top: 4rem; color: #b7ab9d;">+ many more ongoing experiments</p>
+  </section>
 
-    <section class="outro">
-      <h1>Let's create something amazing together</h1>
-    </section>
+  <!-- OUTRO (expanded with button) -->
+  <section class="outro scroll-fade">
+    <h1>Let's create something amazing together</h1>
+    <button class="cta-button">tell us your idea →</button>
+  </section>
 
-    
+  <div class="footer-note">© creative studio — animation showcase</div>
 
-    <script type="module" src="/script.js"></script>
-  </body>
+  <script type="module">
+    // simple intersection observer for scroll animations
+    const faders = document.querySelectorAll('.scroll-fade');
+
+    // if no intersection observer, just reveal
+    if (window.IntersectionObserver) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            // optional: unobserve after reveal for performance
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.2,
+        rootMargin: '0px 0px -30px 0px'
+      });
+
+      faders.forEach(el => observer.observe(el));
+    } else {
+      // fallback: immediately visible
+      faders.forEach(el => el.classList.add('visible'));
+    }
+
+    // manually trigger for any element already visible (just in case)
+    // also add visible class to hero by default (no wait)
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.hero .scroll-fade').forEach(el => el.classList.add('visible'));
+    });
+    // quick interactive hover (no functionality needed)
+  </script>
+
+  <!-- extra style to pre-seed visible class on hero elements (avoid initial flicker) -->
+  <style>
+    /* ensure hero segments are visible immediately (they are in viewport) */
+    .hero .scroll-fade {
+      opacity: 1; 
+      transform: none; 
+      transition: none; 
+    }
+    /* but we still want them to be able to fade if we remove class – but we keep it visible */
+    .hero .scroll-fade {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+    /* all other sections start hidden (scroll-fade default) */
+    .scroll-fade:not(.hero .scroll-fade) {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    /* when visible class added, they appear */
+    .scroll-fade.visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+  </style>
+</body>
 </html>
